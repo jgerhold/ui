@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
     "format": "eslint --fix '**/*.{js,vue}'",
     "lint": "eslint -f codeframe '**/*.{js,vue}'",
     "test": "jest",

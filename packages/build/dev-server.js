@@ -1,4 +1,4 @@
-module.exports = ({ contentBase = 'dist/', port = 8080 }) => ({
+module.exports = ({ contentBase = 'dist/', port = 8080, publicUrl = 'localhost:9000' }) => ({
   historyApiFallback: true,
   noInfo: true,
   overlay: true,
@@ -7,5 +7,6 @@ module.exports = ({ contentBase = 'dist/', port = 8080 }) => ({
   disableHostCheck: true,
   host: '0.0.0.0',
   contentBase,
-  port
+  port,
+  public: publicUrl
 })

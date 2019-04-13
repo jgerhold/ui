@@ -38,7 +38,7 @@ const html = ({ filename, template, chunks, exclude, base, files }) =>
     excludeChunks: exclude
   })
 
-const jarvis = (port = 1337) => new Jarvis({ port })
+const jarvis = ({ port = 1337, host = 'localhost' }) => new Jarvis({ port, host })
 
 const bundleAnalyzer = () =>
   new BundleAnalyzerPlugin({

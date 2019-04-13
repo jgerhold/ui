@@ -1,0 +1,42 @@
+version: '3.5'
+
+networks:
+  podlove-ui-net:
+    driver: bridge
+    name: podlove-ui-net
+    driver_opts:
+      com.docker.network.enable_ipv6: 'true'
+
+services:
+  proxy:
+    image: traefik:1.7-alpine
+    # restart: always
+    # command: --web --acme.storage=/etc/traefik/acme.json --logLevel=info \
+    #           ${TRAEFIK_ENTRYPOINT_HTTP} ${TRAEFIK_ENTRYPOINT_HTTPS}\
+    #           --defaultentrypoints=${TRAEFIK_DEFAULT_ENTRYPOINTS} \
+    #           --acme=${ACME_ENABLE} --acme.entrypoint=https --acme.httpchallenge --acme.httpchallenge.entrypoint=http \
+    #           --acme.domains="${ACME_DOMAINS}" --acme.email="${ACME_EMAIL}" \
+    #           --docker --docker.domain="${DOCKER_DOMAIN}" --docker.endpoint="unix:///var/run/docker.sock" \
+    #           --docker.watch=true --docker.exposedbydefault="false"
+    container_name: podlove-ui-proxy
+    networks:
+      - podlove-ui-net
+    ports:
+      - '80:80'
+      # - "443:443"
+      - '8080:8080' # Traefik UI
+    volumes:
+      - ./docker/config/proxy:/etc/traefik/
+      - /var/run/docker.sock:/var/run/docker.sock
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: phpmyadmin
+  #   networks:
+  #     - podlove-ui-net
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #     - PMA_ABSOLUTE_URI=http://phpmyadmin.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+  #   labels:
+  #     - "traefik.frontend.rule=Host:phpmyadmin.${PODLOVE_UI_DOMAIN:-podlove-ui.test}"
+  #     - "traefik.port=80"
+  #     - "traefik.enable=true"

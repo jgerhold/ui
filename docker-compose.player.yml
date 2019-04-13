@@ -1,0 +1,35 @@
+version: '3'
+
+networks:
+  podlove-ui-net:
+    external: true
+
+services:
+  node:
+    image: node:10-alpine
+    volumes:
+      - ./:/ui:cached
+    ports:
+      - '${PODLOVE_UI_PLAYER_DEV_PORT:-9000}:${PODLOVE_UI_PLAYER_DEV_PORT:-9000}'
+      - '${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}:${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}'
+    user: 'node'
+    working_dir: /ui
+    environment:
+      NODE_ENV: development
+      IS_IN_DOCKER: 1
+      DOMAIN: node.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+      PLAYER_DEV_DOMAIN: player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+      PLAYER_DEV_PORT: ${PODLOVE_UI_PLAYER_DEV_PORT:-9000}
+      PLAYER_JARVIS_DOMAIN: player-jarvis.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+      PLAYER_JARVIS_PORT: ${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}
+    command: 'node'
+    labels:
+      - 'traefik.player-dev.frontend.rule=Host:player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}'
+      - 'traefik.player-dev.port=${PODLOVE_UI_PLAYER_DEV_PORT:-9000}'
+      - 'traefik.player-jarvis.frontend.rule=Host:player-jarvis.${PODLOVE_UI_DOMAIN:-podlove-ui.test}'
+      - 'traefik.player-jarvis.port=${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}'
+      - 'traefik.enable=true'
+    networks:
+      podlove-ui-net:
+        aliases:
+          - node.${PODLOVE_UI_DOMAIN:-podlove-ui.test}

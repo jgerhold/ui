@@ -1,5 +1,12 @@
 const { output, resolve, devServer, rules, plugins } = require('@podlove/build')
 
+const {
+  IS_IN_DOCKER = 0,
+  PLAYER_DEV_PORT = 9000,
+  PLAYER_JARVIS_PORT = 1337,
+  PLAYER_DEV_DOMAIN = 'localhost'
+} = process.env
+
 module.exports = {
   mode: 'development',
 
@@ -16,16 +23,26 @@ module.exports = {
   }),
 
   devtool: 'inline-source-map',
-  devServer: devServer({ port: 9000, contentBase: './dist' }),
+  devServer: devServer({
+    port: PLAYER_DEV_PORT,
+    contentBase: './dist',
+    publicUrl: IS_IN_DOCKER ? `${PLAYER_DEV_DOMAIN}:80` : `localhost:${PLAYER_DEV_PORT}`
+  }),
 
   module: {
-    rules: [rules.vue(), rules.javascript(), rules.images(), rules.vueStyles({ prod: false }), rules.pug()]
+    rules: [
+      rules.vue(),
+      rules.javascript(),
+      rules.images(),
+      rules.vueStyles({ prod: false }),
+      rules.pug()
+    ]
   },
 
   plugins: [
     plugins.vue(),
     plugins.base('.'),
-    plugins.jarvis(1337),
+    plugins.jarvis({ port: PLAYER_JARVIS_PORT, host: IS_IN_DOCKER ? '0.0.0.0' : 'localhost' }),
     plugins.bundleAnalyzer(),
     plugins.hmr(),
     plugins.html({
