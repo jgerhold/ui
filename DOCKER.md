@@ -23,6 +23,9 @@ If you want to access the player via a custom domain instead of localhost:<port>
 - start the player `make player-dev`
 - access the player on `http://player-dev.podlove-ui.test` (or the base domain you chose)
 - access the webpack jarvis on `http://player-jarvis.podlove-ui.test`
+- start the webplayer `make webplayer-dev`
+- access the webplayer embed example on `http://webplayer-dev.podlove-ui.test` (or the base domain you chose)
+- access the webplayer share example on `http://webplayer-dev.podlove-ui.test/share.html?episode=<url>` (or the base domain you chose)
 
 
 ## podlove-ui.test resolving on a Mac
