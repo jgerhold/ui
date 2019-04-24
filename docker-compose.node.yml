@@ -9,9 +9,6 @@ services:
     image: node:10-alpine
     volumes:
       - ./:/ui:cached
-    ports:
-      - '${PODLOVE_UI_PLAYER_DEV_PORT:-9000}:${PODLOVE_UI_PLAYER_DEV_PORT:-9000}'
-      - '${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}:${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}'
     user: 'node'
     working_dir: /ui
     environment:
@@ -24,12 +21,8 @@ services:
       PLAYER_JARVIS_PORT: ${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}
     command: 'node'
     labels:
-      - 'traefik.player-dev.frontend.rule=Host:player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}'
-      - 'traefik.player-dev.port=${PODLOVE_UI_PLAYER_DEV_PORT:-9000}'
-      - 'traefik.player-jarvis.frontend.rule=Host:player-jarvis.${PODLOVE_UI_DOMAIN:-podlove-ui.test}'
-      - 'traefik.player-jarvis.port=${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}'
-      - 'traefik.enable=true'
+      - 'traefik.enable=false'
     networks:
       podlove-ui-net:
         aliases:
-          - player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+          - node.${PODLOVE_UI_DOMAIN:-podlove-ui.test}

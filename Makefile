@@ -19,11 +19,26 @@ stop:
 
 first-install: npm-install bootstrap
 
+node-shell:
+	docker-compose -f docker-compose.node.yml run --rm -u node node /bin/sh
+
 npm-install:
 	docker-compose -f docker-compose.node.yml run --rm -u node node npm install
 
 bootstrap:
 	docker-compose -f docker-compose.node.yml run --rm -u node node npm run bootstrap
+
+format:
+	docker-compose -f docker-compose.node.yml run --rm -u node node npm run format
+
+lint:
+	docker-compose -f docker-compose.node.yml run --rm -u node node npm run lint
+
+test:
+	docker-compose -f docker-compose.node.yml run --rm -u node node npm run test
+
+test-dev:
+	docker-compose -f docker-compose.node.yml run --rm -u node node npm run test:dev
 
 # No mapped ports, start base environment first
 player-shell:
