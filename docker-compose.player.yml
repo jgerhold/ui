@@ -4,11 +4,16 @@ networks:
   podlove-ui-net:
     external: true
 
+volumes:
+  podlove-ui-npm-cache:
+    external: true
+
 services:
   node:
     image: node:10-alpine
     volumes:
       - ./:/ui:cached
+      - podlove-ui-npm-cache:/home/node/.npm
     ports:
       - '${PODLOVE_UI_PLAYER_DEV_PORT:-9000}:${PODLOVE_UI_PLAYER_DEV_PORT:-9000}'
       - '${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}:${PODLOVE_UI_PLAYER_JARVIS_PORT:-1337}'

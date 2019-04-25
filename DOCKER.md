@@ -4,10 +4,10 @@
 
 - copy `env.default` to `.env` and modify the settings if needed.
 - there is a `Makefile` for the commonly needed commands.
+- run `make first-install`
   
 ### Standalone Player example
 
-- run `make first-install`
 - run `make standalone-player-dev`
 - connect to the player on `http://localhost:9000` (Or the PODLOVE_UI_PLAYER_DEV_PORT you configured in the `.env`file.)
 - connect to jarvis on `http://localhost:1337` (Or the PODLOVE_UI_PLAYER_JARVIS_PORT you configured in the `.env`file.)

@@ -4,11 +4,15 @@ networks:
   podlove-ui-net:
     external: true
 
+volumes:
+  podlove-ui-npm-cache:
+
 services:
   node:
     image: node:10-alpine
     volumes:
       - ./:/ui:cached
+      - podlove-ui-npm-cache:/home/node/.npm
     user: 'node'
     working_dir: /ui
     environment:
