@@ -17,7 +17,7 @@
 If you want to access the player via a custom domain instead of localhost:<port> you can follow these steps:
 
 - configure the domain in `.env` (default: podlove-ui.test)
-- you need to setup your local system to resolve this domain to the local machine (=> 127.0.0.1). You can do this via a hosts file or use a more modular approach vua a local dns resolver. See below for an example how to set this up on a Mac.
+- you need to setup your local system to resolve this domain to the local machine (=> 127.0.0.1). You can do this via a hosts file or use a more modular approach via a local dns resolver. See below for an example how to set this up on a Mac.
 - start the routing proxy with `make start` (`make start-log` to get the container logs)
 - see the status of the traefik proxy on `http://localhost:8080/dashboard/` 
 - start the player `make player-dev`

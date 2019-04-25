@@ -28,15 +28,3 @@ services:
     volumes:
       - ./docker/config/proxy:/etc/traefik/
       - /var/run/docker.sock:/var/run/docker.sock
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin
-  #   container_name: phpmyadmin
-  #   networks:
-  #     - podlove-ui-net
-  #   environment:
-  #     - PMA_ARBITRARY=1
-  #     - PMA_ABSOLUTE_URI=http://phpmyadmin.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
-  #   labels:
-  #     - "traefik.frontend.rule=Host:phpmyadmin.${PODLOVE_UI_DOMAIN:-podlove-ui.test}"
-  #     - "traefik.port=80"
-  #     - "traefik.enable=true"
