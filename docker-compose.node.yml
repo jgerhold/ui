@@ -6,6 +6,7 @@ networks:
 
 volumes:
   podlove-ui-npm-cache:
+    external: true
 
 services:
   node:

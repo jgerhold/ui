@@ -17,10 +17,13 @@ stop:
 
 ## NODE
 
-first-install: npm-set-cache-owner npm-install bootstrap
+first-install: npm-create-cache-volume npm-set-cache-owner npm-install bootstrap
 
 node-shell:
 	docker-compose -f docker-compose.node.yml run --rm -u node node /bin/sh
+
+npm-create-cache-volume:
+	docker volume create --name=podlove-ui-npm-cache
 
 npm-set-cache-owner:
 	docker-compose -f docker-compose.node.yml run --rm -u root node /bin/sh -c 'chown -R node.node /home/node/.npm'
