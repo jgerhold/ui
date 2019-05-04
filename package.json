@@ -42,10 +42,11 @@
   "lint-staged": {
     "linters": {
       "**/*.{js,vue}": [
-        "eslint --fix '**/*.{js,vue}'",
+        "docker-compose -f docker-compose.node.yml run --rm -u node node npm run format",
         "git add"
       ]
-    }
+    },
+    "relative": true
   },
   "husky": {
     "hooks": {
