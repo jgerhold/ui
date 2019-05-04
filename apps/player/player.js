@@ -1,9 +1,7 @@
 /* eslint-disable no-global-assign, no-unused-vars */
 /* globals __webpack_public_path__ */
-
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import { head } from 'ramda'
 
 import App from './src'
 import store from './src/store'
@@ -26,8 +24,4 @@ const i18n = new VueI18n({
   }
 })
 
-new Vue({
-  i18n,
-  el: head(document.getElementsByTagName('podlove-player')),
-  render: h => h(App)
-})
+export { App, i18n }

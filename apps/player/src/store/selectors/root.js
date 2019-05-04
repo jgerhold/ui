@@ -10,6 +10,7 @@ export default {
   media: prop('media'),
   playstate: prop('playstate'),
   components: prop('components'),
+  visibleComponents: prop('visibleComponents'),
   ghost: prop('ghost'),
   network: prop('network'),
   quantiles: prop('quantiles'),
@@ -19,5 +20,6 @@ export default {
   share: prop('share'),
   reference: prop('reference'),
   audio: prop('audio'),
-  transcripts: prop('transcripts')
+  transcripts: prop('transcripts'),
+  error: prop('error')
 }

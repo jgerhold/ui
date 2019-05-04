@@ -11,8 +11,8 @@ module.exports = {
   mode: 'development',
 
   entry: {
-    main: './player.js',
-    example: './example/example.js'
+    example: './example/example.js',
+    bootstrap: './bootstrap.js'
   },
   output: output(),
 
@@ -49,6 +49,14 @@ module.exports = {
       filename: 'index.html',
       template: './example/index.html'
     }),
+    plugins.html({
+      filename: 'test.html',
+      template: './example/index.html',
+      chunks: ['bootstrap']
+    }),
+    plugins.copy([
+      { from: './example/assets', to: 'assets' }
+    ]),
     plugins.env({ mode: 'development' })
   ]
 }

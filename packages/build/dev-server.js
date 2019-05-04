@@ -1,6 +1,6 @@
 module.exports = ({ contentBase = 'dist/', port = 8080, publicUrl = 'localhost:9000' }) => ({
   historyApiFallback: true,
-  noInfo: true,
+  noInfo: false,
   overlay: true,
   inline: true,
   hot: true,

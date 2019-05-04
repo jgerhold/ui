@@ -46,9 +46,14 @@ module.exports = {
       base: IS_IN_DOCKER ? `${WEBPLAYER_DEV_DOMAIN}:80` : `localhost:${WEBPLAYER_DEV_PORT}`
     }),
     plugins.html({
+      filename: 'test.html',
+      template: './example/test.html',
+      exclude: ['share', 'extensions/external-events']
+    }),
+    plugins.html({
       files: {
         styles: ['styles'],
-        scripts: ['vendor', 'styles', 'runtime', 'player']
+        scripts: ['vendor', 'styles', 'runtime', 'bootstrap']
       },
       filename: 'share.html',
       template: '!!mustache-loader!./src/lib/share.mustache',
@@ -62,7 +67,7 @@ module.exports = {
     plugins.env({
       MODE: 'development',
       BASE,
-      SCRIPTS: ['vendor', 'styles', 'runtime', 'player'],
+      SCRIPTS: ['vendor', 'styles', 'runtime', 'bootstrap'],
       STYLES: ['styles']
     }),
     plugins.copy([
@@ -84,7 +89,8 @@ module.exports = {
       },
       {
         from: './example/example.jpg'
-      }
+      },
+      { from: './example/assets', to: 'assets' }
     ])
   ]
 }

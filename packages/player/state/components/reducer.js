@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions'
 import {
   SHOW_COMPONENT_INFO_POSTER,
-  SHOW_COMPONENT_ERROR,
   SHOW_COMPONENT_TAB,
   SHOW_COMPONENT_VOLUME_SLIDER,
   SHOW_COMPONENT_RATE_SLIDER,
@@ -37,31 +36,26 @@ export const INITIAL_STATE = {
   progressBar: false,
   chapterButtons: false,
   stepperButtons: false,
-  volumeControl: true,
-  rateControl: true,
-  poster: true,
-  error: false,
+  volumeControl: false,
+  rateControl: false,
+  poster: false,
   info: {
     episodeTitle: false,
     showTitle: false,
     subtitle: false
   },
   tabs: {
-    info: true,
-    chapters: true,
-    transcript: true,
-    share: true,
-    files: true,
-    audio: true
+    info: false,
+    chapters: false,
+    transcript: false,
+    share: false,
+    files: false,
+    audio: false
   }
 }
 
 export const reducer = handleActions(
   {
-    [SHOW_COMPONENT_ERROR]: state => ({
-      ...state,
-      error: true
-    }),
     [HIDE_COMPONENT_ERROR]: state => ({
       ...state,
       error: false
