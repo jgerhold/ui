@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  podlove-ui-net:
+    external: true
+
+volumes:
+  podlove-ui-npm-cache:
+    external: true
+
+services:
+  node:
+    image: node:10-alpine
+    volumes:
+      - ../:/ui:cached
+      - podlove-ui-npm-cache:/home/node/.npm
+    ports:
+      - '${PODLOVE_UI_DOCS_WEBPLAYER_DEV_PORT:-8080}:${PODLOVE_UI_DOCS_WEBPLAYER_DEV_PORT:-8080}'
+    user: 'node'
+    working_dir: /ui
+    environment:
+      NODE_ENV: development
+      IS_IN_DOCKER: 1
+      DOMAIN: node.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+      PODLOVE_UI_DOCS_WEBPLAYER_DEV_DOMAIN: docs.web-player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
+      PODLOVE_UI_DOCS_WEBPLAYER_DEV_PORT: ${PODLOVE_UI_DOCS_WEBPLAYER_DEV_PORT:-8080}
+      BASE: docs.web-player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}:80
+    command: 'node'
+    labels:
+      - 'traefik.docs.web-player-dev.frontend.rule=Host:docs.web-player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}'
+      - 'traefik.docs.web-player-dev.port=${PODLOVE_UI_DOCS_WEBPLAYER_DEV_PORT:-8080}'
+      - 'traefik.enable=true'
+    networks:
+      podlove-ui-net:
+        aliases:
+          - docs.web-player-dev.${PODLOVE_UI_DOMAIN:-podlove-ui.test}
