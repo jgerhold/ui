@@ -118,13 +118,10 @@ export default {
       this.overflows = false
 
       this.$nextTick(() => {
-        setStyles({ 'overflow-x': 'auto' })(el)
+        setStyles({ 'overflow-x': 'auto' }, el)
         this.overflows = el.scrollWidth > el.clientWidth
-        setStyles({ 'overflow-x': 'hidden' })(el)
+        setStyles({ 'overflow-x': 'hidden' }, el)
       })
-    },
-    mounted() {
-      this.resizeHandler()
     }
   }
 }

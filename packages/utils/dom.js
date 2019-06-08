@@ -1,10 +1,10 @@
 /* global MutationObserver */
-
-import { curry, compose, uniq, concat, join, filter, head, identity } from 'lodash/fp'
+import { curry, compose, uniq, concat, join, filter, identity, head } from 'ramda'
 import DOMPurify from 'dompurify'
 
 export const findNode = selector =>
   typeof selector === 'string' ? head(document.querySelectorAll(selector)) : selector
+
 export const createNode = tag => document.createElement(tag)
 export const appendNode = curry((node, child) => {
   node.appendChild(child)
@@ -12,20 +12,20 @@ export const appendNode = curry((node, child) => {
   return child
 })
 
-export const tag = curry((tag, value = '', attributes = {}) => {
-  let attr = Object.keys(attributes).map(attribute => ` ${attribute}="${attributes[attribute]}"`)
-
-  attr = attr.join('')
+export const tag = curry((tag, value = '', attributes) => {
+  let attr = Object.keys(attributes || {})
+    .map(attribute => ` ${attribute}="${attributes[attribute]}"`)
+    .join('')
   return `<${tag}${attr}>${value}</${tag}>`
 })
 
-export const setStyles = (attrs = {}) => el => {
+export const setStyles = curry((attrs, el) => {
   Object.keys(attrs).forEach(property => {
     el.style[property] = attrs[property]
   })
 
   return el
-}
+})
 
 export const getClasses = compose(
   filter(identity),
@@ -34,7 +34,7 @@ export const getClasses = compose(
 
 export const hasOverflow = el => el.scrollWidth > el.clientWidth
 
-export const addClasses = (classes = []) => el => {
+export const addClasses = curry((classes = [], el) => {
   el.className = compose(
     join(' '),
     uniq,
@@ -43,9 +43,9 @@ export const addClasses = (classes = []) => el => {
   )(el)
 
   return el
-}
+})
 
-export const removeClasses = (classes = []) => el => {
+export const removeClasses = curry((classes = [], el) => {
   el.className = compose(
     join(' '),
     filter(className => !~classes.indexOf(className)),
@@ -53,7 +53,7 @@ export const removeClasses = (classes = []) => el => {
   )(el)
 
   return el
-}
+})
 
 export const sanitize = input => {
   if (!input || typeof window === 'undefined') {
@@ -77,17 +77,17 @@ export const sanitize = input => {
   })
 }
 
-export const setAttributes = (attrs = {}) => el => {
+export const setAttributes = curry((attrs, el) => {
   Object.keys(attrs).forEach(property => {
     el.setAttribute(property, attrs[property])
   })
 
   return el
-}
+})
 
-export const resizeObserver = (element, cb) => {
+export const resizeObserver = curry((element, cb) => {
   const observer = new MutationObserver(cb)
 
   observer.observe(element, { childList: true })
   window.addEventListener('resize', cb)
-}
+})

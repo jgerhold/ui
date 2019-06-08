@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist",
+    "clean": "rm -rf apps/**/dist apps/**/publish packages/**/dist packages/**/publish",
     "format": "eslint --fix '**/*.{js,vue}'",
     "lint": "eslint -f codeframe '**/*.{js,vue}'",
     "test": "jest",
@@ -35,14 +36,13 @@
     "lerna": "3.4.3",
     "lint-staged": "8.1.5",
     "prettier": "^1.17.0",
-    "vue-test-utils": "1.0.0-beta.11",
     "vue-jest": "4.0.0-beta.2",
     "cypress": "3.2.0"
   },
   "lint-staged": {
     "linters": {
       "**/*.{js,vue}": [
-        "docker-compose -f docker-compose.node.yml run --rm -u node node npm run format",
+        "docker-compose -f dockder/docker-compose.node.yml run --rm -u node node npm run format",
         "git add"
       ]
     },

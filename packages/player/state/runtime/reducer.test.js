@@ -1,5 +1,11 @@
 import { reducer, INITIAL_STATE } from './reducer'
-import { SET_RUNTIME, SET_LANGUAGE, SET_VERSION, SET_MODE } from '@podlove/player-actions/types'
+import {
+  SET_RUNTIME,
+  SET_LANGUAGE,
+  SET_VERSION,
+  SET_MODE,
+  INIT
+} from '@podlove/player-actions/types'
 
 describe('runtime', () => {
   test(`it is a reducer function`, () => {
@@ -11,7 +17,8 @@ describe('runtime', () => {
       display: 'display',
       browser: 'browser',
       locale: 'locale',
-      platform: 'platform'
+      platform: 'platform',
+      language: 'language'
     }
 
     const result = reducer(INITIAL_STATE, {
@@ -78,6 +85,22 @@ describe('runtime', () => {
     ).toEqual({
       ...INITIAL_STATE,
       mode: 'native'
+    })
+  })
+
+  test(`it sets language and runtime on INIT`, () => {
+    expect(
+      reducer(INITIAL_STATE, {
+        type: INIT,
+        payload: {
+          runtime: {
+            language: 'es'
+          }
+        }
+      })
+    ).toEqual({
+      ...INITIAL_STATE,
+      language: 'es'
     })
   })
 })

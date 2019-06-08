@@ -1,4 +1,4 @@
-import { compose } from 'lodash/fp'
+import { compose } from 'ramda'
 import color from 'color'
 import { selectors as theme } from '@podlove/player-state/theme'
 import root from './root'
@@ -95,7 +95,7 @@ const tabsHead = state => ({
     .fade(0.9)
     .string(),
   color: monoColor(state),
-  colorActive: theme.isNegative(state) ? theme.darkColor(state) : theme.lightColor(state)
+  colorActive: theme.isNegative(state) ? theme.mainColor(state) : theme.darkColor(state)
 })
 
 const tabsBody = state => ({
@@ -164,7 +164,7 @@ const shareContentStyle = state => ({
   background: color(theme.mainColor(state))
     .fade(0.8)
     .string(),
-  color: theme.isNegative(state) ? theme.darkColor(state) : theme.lightColor(state)
+  color: theme.isNegative(state) ? theme.lightColor(state) : theme.darkColor(state)
 })
 
 const inputStyle = state => ({

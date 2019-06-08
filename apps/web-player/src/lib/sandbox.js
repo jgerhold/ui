@@ -1,4 +1,4 @@
-/* global BASE, STYLES, SCRIPTS */
+/* global BASE, STYLES, SCRIPTS, MODE */
 
 import { propOr, prop, curry } from 'ramda'
 import { setAttributes } from '@podlove/utils/dom'
@@ -12,15 +12,18 @@ import { createLoader } from './loader'
 const setAccessibilityAttributes = curry((config, node) => {
   const title = `Podlove Web Player${prop('title', config) ? ': ' + prop('title', config) : ''}`
 
-  return setAttributes({
-    title,
-    'aria-label': title,
-    tabindex: 0
-  })(node)
+  return setAttributes(
+    {
+      title,
+      'aria-label': title,
+      tabindex: 0
+    },
+    node
+  )
 })
 
 export const createSandbox = async (config, node) => {
-  const reference = propOr(BASE, 'base', config.reference)
+  const reference = MODE === 'cdn' ? BASE : propOr(BASE, 'base', config.reference)
   const playerDom = embedPlayerDom({
     base: reference,
     styles: STYLES,

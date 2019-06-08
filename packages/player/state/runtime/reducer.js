@@ -1,7 +1,14 @@
 import { handleActions } from 'redux-actions'
 import { propOr } from 'ramda'
+import { language } from '@podlove/utils/config'
 
-import { SET_LANGUAGE, SET_RUNTIME, SET_VERSION, SET_MODE } from '@podlove/player-actions/types'
+import {
+  INIT,
+  SET_LANGUAGE,
+  SET_RUNTIME,
+  SET_VERSION,
+  SET_MODE
+} from '@podlove/player-actions/types'
 
 export const INITIAL_STATE = {
   language: 'en',
@@ -23,7 +30,8 @@ export const reducer = handleActions(
       display: propOr(null, 'display', payload),
       browser: propOr(null, 'browser', payload),
       locale: propOr(null, 'locale', payload),
-      platform: propOr(null, 'platform', payload)
+      platform: propOr(null, 'platform', payload),
+      language: propOr(null, 'language', payload)
     }),
     [SET_VERSION]: (state, { payload }) => ({
       ...state,
@@ -32,6 +40,10 @@ export const reducer = handleActions(
     [SET_MODE]: (state, { payload }) => ({
       ...state,
       mode: ['native', 'embed'].includes(payload) ? payload : state.mode
+    }),
+    [INIT]: (state, { payload }) => ({
+      ...state,
+      language: language(payload) || state.language
     })
   },
   INITIAL_STATE

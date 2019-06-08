@@ -1,37 +1,38 @@
 {
   "name": "@podlove/components",
-  "version": "4.2.3",
+  "version": "4.5.5",
   "description": "Reusable Podlove UI Components",
-  "main": "dist/main.js",
+  "homepage": "https://github.com/podlove/ui/tree/development/packages/components",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist publish",
     "dev": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "npm run clean && webpack --config .build/webpack.config.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "publish:prepare": "npm run clean && npm run build && podlove-prepublish",
+    "postpublish": "npm run clean"
   },
   "keywords": [],
   "author": "Alexander Heimbuch <github@heimbu.ch>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.11",
+    "@podlove/player-actions": "^4.5.5",
+    "@podlove/utils": "^4.5.5",
     "normalize.css": "8.0.1",
-    "vue": "2.6.10",
-    "@podlove/player-actions": "4.2.3",
-    "@podlove/utils": "4.2.3",
-    "v-tooltip": "2.0.0-rc.33"
+    "v-tooltip": "2.0.0-rc.33",
+    "vue": "2.6.10"
   },
   "devDependencies": {
-    "@podlove/build": "4.2.3",
-    "webpack-dev-server": "3.1.11",
-    "webpack": "4.26.0",
+    "@podlove/build": "^4.5.5",
     "@storybook/addon-actions": "5.0.5",
     "@storybook/addon-centered": "5.0.5",
     "@storybook/addon-knobs": "5.0.5",
     "@storybook/addon-options": "5.0.5",
     "@storybook/addons": "5.0.5",
     "@storybook/vue": "5.0.5",
-    "terser": "3.14.1"
+    "terser": "3.14.1",
+    "webpack": "4.26.0",
+    "webpack-dev-server": "3.1.11"
   }
 }

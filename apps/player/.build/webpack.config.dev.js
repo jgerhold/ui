@@ -1,4 +1,6 @@
+const path = require('path')
 const { output, resolve, devServer, rules, plugins } = require('@podlove/build')
+const componentAssets = path.resolve('./node_modules/@podlove/components/dist')
 
 const {
   IS_IN_DOCKER = 0,
@@ -19,7 +21,8 @@ module.exports = {
   resolve: resolve({
     styles: './src/styles',
     store: './src/store',
-    directives: './src/directives'
+    directives: './src/directives',
+    '@podlove/components': componentAssets
   }),
 
   devtool: 'inline-source-map',
